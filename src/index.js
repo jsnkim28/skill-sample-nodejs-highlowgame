@@ -22,7 +22,7 @@ var newSessionHandlers = {
             this.attributes['gamesPlayed'] = 0;
         }
         this.handler.state = states.STARTMODE;
-        this.response.speak('Welcome to High Low guessing game. You have played '
+        this.response.speak('Welcome to Pure Karaoke High Low Drinking game. You have played '
             + this.attributes['gamesPlayed'].toString() + ' times. would you like to play?')
             .listen('Say yes to start the game or no to quit.');
         this.emit(':responseReady');  
@@ -48,7 +48,7 @@ var startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
         this.emit('NewSession'); // Uses the handler in newSessionHandlers
     },
     'AMAZON.HelpIntent': function() {
-        var message = 'I will think of a number between zero and one hundred, try to guess and I will tell you if it' +
+        var message = 'I will think of a number between zero and twenty five, try to guess and I will tell you if it' +
             ' is higher or lower. Do you want to start the game?';
         this.response.speak(message).listen(message);
         this.emit(':responseReady');        
@@ -105,7 +105,7 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
         } else if (guessNum === targetNum){
             // With a callback, use the arrow function to preserve the correct 'this' context
             this.emit('JustRight', () => {
-                this.response.speak(guessNum.toString() + 'is correct! Would you like to play a new game?')
+                this.response.speak(guessNum.toString() + 'Congratulations! Drink up buddy.')
                 .listen('Say yes to start a new game, or no to end the game.');
                 this.emit(':responseReady');                
         })
@@ -114,7 +114,7 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
         }
     },
     'AMAZON.HelpIntent': function() {
-        this.response.speak('I am thinking of a number between zero and one hundred, try to guess and I will tell you' +
+        this.response.speak('I am thinking of a number between zero and twenty five, try to guess and I will tell you' +
             ' if it is higher or lower.')
             .listen('Try saying a number.');
         this.emit(':responseReady');            
